@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\HomeController as AdminHomecontroller;
+use App\Http\Controllers\Guest\HomeController as GuestHomecontroller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [GuestHomecontroller::class, 'index']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// stabilisco chi controlla questa rotta e come si chiama
+Route::get('/home',[AdminHomeController::class,'index'])->middleware(['auth'])->name('home');
+
+
+
 
 Route::middleware('auth')
 // tutte le rotte di questo gruppo hanno come prefisso profile e gli do prefix()

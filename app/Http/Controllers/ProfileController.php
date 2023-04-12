@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+// qui non ho l'import (use App\Http\Controllers\Controller) perche' si trova nella stessa cartella
+// cosa che invece avro' negli home controller
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
