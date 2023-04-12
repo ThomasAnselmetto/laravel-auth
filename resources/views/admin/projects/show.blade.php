@@ -22,7 +22,7 @@
           <h2 class="card-title mb-3">Commits:  {{$project->commits}}</h2>
           <h4 class="card-title mb-3">Contributors:  {{$project->contributors}}</h4>
           <h4 class="card-text mb-3">Description:  {{$project->description}}</h4>
-          <a href="https://open.spotify.com/" class="btn btn-primary">Apri la Repo su Github</a>
+          <a href="https://github.com/ThomasAnselmetto?tab=repositories" class="btn btn-primary">Apri la Repo su Github</a>
         </div>
       </div>
     </div>
