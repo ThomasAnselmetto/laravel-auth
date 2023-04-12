@@ -41,4 +41,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    // creo un mutators(invece di fare il bcrypt nel seeder) ogni volta che setto un valore con la freccia "->" questo viene intercettato e modificato
+    // sintassi:
+
+    // public function setPasswordAttribute($value){
+        // $this->attributes['password'] = bcrypt($value)}
+    
+
+    public function setPasswordAttribute($value){
+        $this->attributes['password'] = bcrypt($value);
+    }
 }

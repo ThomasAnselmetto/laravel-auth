@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\HomeController as AdminHomecontroller;
+use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Guest\HomeController as GuestHomecontroller;
 use Illuminate\Support\Facades\Route;
 
@@ -19,10 +20,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [GuestHomecontroller::class, 'index']);
 
 // stabilisco chi controlla questa rotta e come si chiama
-Route::get('/home',[AdminHomeController::class,'index'])->middleware(['auth'])->name('home');
+Route::get('/home',[AdminHomeController::class,'index'])->middleware('auth')->name('home');
+
+Route::get('/projects/{project:slug}',[ProjectController::class,'show'])->middleware('auth')->name('custom.show');
+
+Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function(){
 
 
-
+Route::resource('projects', ProjectController::class)
+->parameters(['projects' => 'project:slug']); 
+});
 
 Route::middleware('auth')
 // tutte le rotte di questo gruppo hanno come prefisso profile e gli do prefix()

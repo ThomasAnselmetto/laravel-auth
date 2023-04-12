@@ -17,7 +17,10 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        // dd(Project::all());
+        $projects = Project::paginate(7);
+        return view('admin.projects.index',compact('projects'));
+        
     }
 
     /**
@@ -49,7 +52,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        // ritorniamo semplicemente la view della show e usiamo il compact per inviare array e le sue value
+       return view('admin.projects.show',compact('project'));
     }
 
     /**
