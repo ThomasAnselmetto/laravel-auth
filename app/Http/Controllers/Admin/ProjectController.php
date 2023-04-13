@@ -19,7 +19,7 @@ class ProjectController extends Controller
     public function index()
     {
         // dd(Project::all());
-        $projects = Project::paginate(7);
+        $projects = Project::paginate(7)->withQueryString();
         return view('admin.projects.index',compact('projects'));
         
     }
