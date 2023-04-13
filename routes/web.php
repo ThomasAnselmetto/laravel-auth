@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [GuestHomecontroller::class, 'index']);
 
 // stabilisco chi controlla questa rotta e come si chiama
-Route::get('/home',[AdminHomeController::class,'index'])->middleware('auth')->name('home');
+Route::get('/home',[ProjectController::class,'index'])->middleware('auth')->name('home');
 
 Route::get('/projects/{project:slug}',[ProjectController::class,'show'])->middleware('auth')->name('custom.show');
 

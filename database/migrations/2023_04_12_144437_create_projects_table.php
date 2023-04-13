@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('commits');
             $table->integer('contributors');
+            $table->string('project_preview_img')->nullable();
             $table->string('slug',100)->unique();
             $table->text('description');
             $table->timestamps();

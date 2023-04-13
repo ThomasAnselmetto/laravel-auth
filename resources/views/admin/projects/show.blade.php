@@ -2,6 +2,9 @@
 
 @section('content')
 <section class="container">
+  @section('title')
+    <h1 class="mt-4 mb-5">Project Detail</h1>
+    @endsection
   <h1 class="my-4">Project: {{$project->name}}</h1>
   <div class="dettaglio-canzone row mt-1 mb-5">
     <div class="col-8 offset-2">
@@ -17,7 +20,7 @@
           </ul>
         </div>
         <div class="card-body">
-          
+          <img class="my-4" src="{{$project->project_preview_img}}" >
           <h2 class="card-title mb-3">Name:  {{$project->name}}</h2>
           <h2 class="card-title mb-3">Commits:  {{$project->commits}}</h2>
           <h4 class="card-title mb-3">Contributors:  {{$project->contributors}}</h4>

@@ -5,17 +5,14 @@
 @section('content')
     
   <div class="container">
-
-    <h1 class="mt-4 mb-5">Project List</h1>
+    @section('title')
+    <h1 class="mt-4 mb-5">Projects List</h1>
+    @endsection
+    
     <div class="row">
-      <div class="col-6">
-        <form class="d-flex my-2 my-lg-0">
-          <input class="form-control me-sm-2" name="term" type="text" placeholder="Search projects">
-          <button class="btn btn-dark my-2 my-sm-0 fw-bold" type="submit">Search Project</button>
-        </form>
-      </div>
-      <div class="col-6 d-flex justify-content-end">
-        {{-- <a type="button" class="btn btn-success fw-bold" href="{{route('projects.create')}}">Create New project Link</a> --}}
+     
+      <div class="col-12 d-flex justify-content-end">
+        <a type="button" class="btn btn-success fw-bold" href="{{route('admin.projects.create')}}">Create New project Link</a>
       </div>
     </div>
     
@@ -43,8 +40,8 @@
           <td>{{$project->contributors}}</td>
           <td>{{$project->description}}</td>
           <td class="text-center pt-5">
-            <a class="" href="{{ route('admin.projects.show', ['project' => $project ])}}"><i class="bi bi-sliders2-vertical text-primary fs-3 "></i></a>
-            <a class="" href="{{ route('admin.projects.edit', ['project' => $project ])}}"><i class="bi bi-bandaid-fill text-primary fs-3 "></i></a>
+            <a class="" href="{{ route('admin.projects.show', ['project' => $project ])}}"><i class="bi bi-aspect-ratio-fill text-primary fs-3 "></i></a>
+            <a class="" href="{{ route('admin.projects.edit', ['project' => $project ])}}"><i class="bi bi-pencil text-primary fs-3 "></i></a>
             
             
           </td>
