@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    // facciamo la paginazione prefissata con bootstrap ma lo facciamo in namespace App\Providers\ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();

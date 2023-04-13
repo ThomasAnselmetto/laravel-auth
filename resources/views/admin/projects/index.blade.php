@@ -38,10 +38,11 @@
           <td>{{$project->name}}</td>
           <td>{{$project->commits}}</td>
           <td>{{$project->contributors}}</td>
-          <td>{{$project->description}}</td>
-          <td class="text-center pt-5">
+          <td class="description">{{$project->getAbstract()}}</td>
+          <td class="d-flex flex-column align-items-center justify-content-between">
             <a class="" href="{{ route('admin.projects.show', ['project' => $project ])}}"><i class="bi bi-aspect-ratio-fill text-primary fs-3 "></i></a>
             <a class="" href="{{ route('admin.projects.edit', ['project' => $project ])}}"><i class="bi bi-pencil text-primary fs-3 "></i></a>
+            <button class="bi bi-clipboard2-x-fill text-danger delete-icon fs-3" data-bs-toggle="modal" data-bs-target="#delete-modal-{{$project->id}}"></button>
             
             
           </td>
@@ -52,6 +53,44 @@
     </table>
     {{ $projects->links('') }}
   </div>
+
+
+  @section('modals')
+@foreach($projects as $project)
+<div class="modal fade" id="delete-modal-{{$project->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-4  fw-bold" id="exampleModalLabel">Attention</h1>
+        
+        {{-- per i button possiamo usare i tooltips 
+          <button type="button" class="btn btn-secondary"
+        data-bs-toggle="tooltip" data-bs-placement="top"
+        data-bs-custom-class="custom-tooltip"
+        data-bs-title="This top tooltip is themed via CSS variables.">
+  Custom tooltip
+</button> --}}
+
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body fs-2 fw-bold">
+        Are you sure you want to delete the project with Name {{$project->name}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info text-light border fw-bold" data-bs-dismiss="modal">Close</button>
+        <form class="" action="{{ route('admin.projects.destroy', ['project' => $project ])}}" method="POST">
+          @csrf
+          @method('delete')
+          <button type="submit" class="btn btn-danger border fw-bold">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+@endforeach
+@endsection 
+
 @endsection
 
       

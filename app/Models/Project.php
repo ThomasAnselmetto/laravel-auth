@@ -11,6 +11,10 @@ class Project extends Model
 {
     use HasFactory;
 
+    public function getAbstract($max = 200) {
+        return substr($this->description, 0 , $max) . "...";
+    }
+
     protected $fillable = ["project_preview_img",
     "name","commits",
     "contributors",

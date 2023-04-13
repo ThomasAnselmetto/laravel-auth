@@ -21,12 +21,15 @@
       
         <div class="col-7">
           <label class="form-label" for="project_preview_img">project_preview_img</label>
-          <input type="text" name="project_preview_img" id="project_preview_img" class="@error('project_preview_img') is-invalid @enderror form-control" value="{{old('project_preview_img', $project->project_preview_img)}}">
+
+          <input type="url" name="project_preview_img" id="project_preview_img" class="@error('project_preview_img') is-invalid @enderror form-control" value="{{old('project_preview_img', $project->project_preview_img)}}">
+          
           @error('project_preview_img')
           <div class="invalid-feedback">
               {{$message}}
-        </div>
+          </div>
         @enderror
+        </div>
     
     
         <div class="col-5">
@@ -35,8 +38,9 @@
           @error('name')
           <div class="invalid-feedback">
               {{$message}}
-        </div>
+          </div>
           @enderror
+        </div>
             
 
       
@@ -50,6 +54,7 @@
               {{$message}}
         </div>
         @enderror
+      </div>
     
         
         <div class="col-2">
@@ -60,16 +65,18 @@
               {{$message}}
         </div>
         @enderror
+      </div>
 
     
         <div class="col-8">
           <label class="form-label" for="description">description</label>
-          <input type="number" name="description" id="description" class="@error('description') is-invalid @enderror form-control" value="{{old('description', $project->description)}}">
+          <input type="text" name="description" id="description" class="@error('description') is-invalid @enderror form-control" value="{{old('description', $project->description)}}">
           @error('description')
           <div class="invalid-feedback">
               {{$message}}
         </div> 
         @enderror
+      </div>
 
 
         <div class="col-3">

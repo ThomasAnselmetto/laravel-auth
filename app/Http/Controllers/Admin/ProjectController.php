@@ -52,6 +52,7 @@ class ProjectController extends Controller
 
         // lo rimando alla vista show e gli invio sottoforma di parametro il progetto appena creato 
         return to_route('admin.projects.show',$project);
+        // ->with('status', 'Profile updated!');;
 
 
     }
@@ -76,7 +77,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        $project = new Project;
+        // $project = new Project;
         return view('admin.projects.form', compact('project'));
     }
 
@@ -89,7 +90,12 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        // $project->update($request->all());differenza tra update e fill che update riempie e salva insieme quindi se devo fare operazione nel mezzo faccio fill e save
+        
+        $project->fill($request->all());
+        $project->slug = Project::generateSlug($project->name);
+        $project->save();
+        return to_route('admin.projects.show', $project);
     }
 
     /**
@@ -100,6 +106,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return to_route('admin.projects.index');
     }
 }
