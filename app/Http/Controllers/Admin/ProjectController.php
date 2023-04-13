@@ -43,7 +43,27 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    //    il validate ha due argomenti che sono gli array 1(validazioni da fare)2(i messaggi d'errore)
+       { 
+        $request->validate([
+            'project_preview_img'=>'nullable|url',
+            'name'=>'required|string|max:100',
+            'commits'=>'required|integer',
+            'contributors'=>'required|integer',
+            'description'=>'required|string',
+
+        ],
+        [
+            'project_preview_img'=> 'You need to enter a url',
+            'name'=> 'Name is Required',
+            'name'=> 'The name must contain a maximum of 100 chars',
+            'contributors'=> 'Contributors are Required',
+            'description'=> 'Description is Required',
+            'description'=> 'Description must be a text',
+
+        ]);
+
+
         // dd($request->all());
         $project = new Project;
         $project->fill($request->all());
@@ -51,7 +71,8 @@ class ProjectController extends Controller
         $project->save();
 
         // lo rimando alla vista show e gli invio sottoforma di parametro il progetto appena creato 
-        return to_route('admin.projects.show',$project);
+        return to_route('admin.projects.show',$project)
+        ->with('message','Project created successfully');
         // ->with('status', 'Profile updated!');;
 
 
@@ -95,7 +116,7 @@ class ProjectController extends Controller
         $project->fill($request->all());
         $project->slug = Project::generateSlug($project->name);
         $project->save();
-        return to_route('admin.projects.show', $project);
+        return to_route('admin.projects.show', $project)->with('message',"Project $project->name Modified successfully");
     }
 
     /**
@@ -105,8 +126,9 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Project $project)
-    {
+    {   
+        $name_project = $project->name;
         $project->delete();
-        return to_route('admin.projects.index');
+        return to_route('admin.projects.index')->with('message',"Project $name_project Delete successfully");
     }
 }

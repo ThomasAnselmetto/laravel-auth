@@ -6,6 +6,8 @@
   <h1 class="mt-4 mb-5">Create and Edit</h1>
   @endsection
 
+  @include('partials.errors')
+
   <div class="card">
     <div class="card-body">
       {{-- rendo riutilizzabile il form sia per il create che per l'edit --}}

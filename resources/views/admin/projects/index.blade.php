@@ -3,7 +3,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css"> 
 @endsection
 @section('content')
-    
+
+@if (session('message'))
+<div class="alert alert-danger">
+    {{ session('message') }}
+</div>
+@endif
   <div class="container">
     @section('title')
     <h1 class="mt-4 mb-5">Projects List</h1>
@@ -62,7 +67,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-4  fw-bold" id="exampleModalLabel">Attention</h1>
-        
+
         {{-- per i button possiamo usare i tooltips 
           <button type="button" class="btn btn-secondary"
         data-bs-toggle="tooltip" data-bs-placement="top"
