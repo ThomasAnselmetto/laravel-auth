@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 // dopo aver spostato il controller dei progetti in admin(perche' e' qua che si gestiscono le crud) aggiungo admin al namespace e aggiungo lo use della rotta use App\Http\Controllers\Controller perche' dopo lo spostamento non era piu' leggibile class ProjectController extends Controller
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $project = new Project;
+        return view('admin.projects.form', compact('project'));
+        
     }
 
     /**
@@ -41,7 +44,16 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $project = new Project;
+        $project->fill($request->all());
+        $project->slug = Project::generateSlug($project->name);
+        $project->save();
+
+        // lo rimando alla vista show e gli invio sottoforma di parametro il progetto appena creato 
+        return to_route('admin.projects.show',$project);
+
+
     }
 
     /**
@@ -64,7 +76,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        $project = new Project;
+        return view('admin.projects.form', compact('project'));
     }
 
     /**
