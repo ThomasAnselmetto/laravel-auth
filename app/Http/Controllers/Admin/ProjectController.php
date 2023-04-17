@@ -13,14 +13,18 @@ class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     *@param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        // dd(Project::all());
-        $projects = Project::paginate(7)->withQueryString();
-        return view('admin.projects.index',compact('projects'));
+    public function index(Request $request)
+    // {   dammi i post,se c'e' l'ordinamento dammeli in un modo,alrtrimenti in un altro
+{
+           $sort = (!empty($sort_request = $request->get('sort'))) ? $sort_request : 'updated_at';
+           $order = (!empty($order_request = $request->get('order'))) ? $order_request : 'DESC';
+           $projects = Project::orderBy($sort, $order)->paginate(7)->withQueryString();
+           return view('admin.projects.index',compact('projects','sort','order'));
+
+
         
     }
 
@@ -54,12 +58,16 @@ class ProjectController extends Controller
 
         ],
         [
-            'project_preview_img'=> 'You need to enter a url',
-            'name'=> 'Name is Required',
-            'name'=> 'The name must contain a maximum of 100 chars',
-            'contributors'=> 'Contributors are Required',
-            'description'=> 'Description is Required',
-            'description'=> 'Description must be a text',
+            'project_preview_img.url'=> 'You need to enter a url',
+            'name.required'=> 'Name is Required',
+            'name.string'=> 'Name must be a string',
+            'name.max'=> 'The name must contain a maximum of 100 chars',
+            'commits.required'=> 'Name must be a string',
+            'commits.integer'=> 'Name must be a string',
+            'contributors.required'=> 'Contributors are Required',
+            'contributors.integer'=> 'Contributors must be a number',
+            'description.required'=> 'Description is Required',
+            'description.string'=> 'Description must be a text',
 
         ]);
 

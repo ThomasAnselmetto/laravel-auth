@@ -82,7 +82,7 @@
 
 
         <div class="col-3">
-          <input type="submit" class="btn btn-primary" value="Save">
+          <input type="submit" class="btn btn-primary mt-3" value="Save">
         </div>
       </form>
 

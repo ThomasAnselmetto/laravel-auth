@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css"> 
 @endsection
 @section('content')
-
+{{-- @dump($sort) --}}
 @if (session('message'))
 <div class="alert alert-danger">
     {{ session('message') }}
@@ -26,11 +26,55 @@
     <table class="table table-light table-striped  mt-5 p-3">
       <thead class="table-head">
         <tr>
-          <th scope="col">Id</th>
-          <th scope="col">Name</th>
-          <th scope="col">Commits</th>
-          <th scope="col">Contributors</th>
-          <th scope="col">Description</th>
+          <th scope="col">
+            <a href="{{route('admin.projects.index')}}?sort=id&order=@if ($sort == 'id' && $order != 'DESC') DESC @else ASC @endif">
+              @if ($sort == 'id')
+              <i class="bi bi-arrow-down d-inline-block @if($order == 'DESC')rotate-180 @endif"></i>
+              @endif
+              Id
+              
+            </a>
+          </th>
+          <th scope="col">
+            <a href="{{route('admin.projects.index')}}?sort=name&order=@if ($sort == 'name' && $order != 'DESC') DESC @else ASC @endif">
+              Name
+              @if ($sort == 'name')
+              <i class="bi bi-arrow-down d-inline-block @if($order == 'DESC')rotate-180 @endif"></i>
+              @endif
+              
+              
+            </a>
+          </th>
+          <th scope="col">
+            <a href="{{route('admin.projects.index')}}?sort=commits&order=@if ($sort == 'commits' && $order != 'DESC') DESC @else ASC @endif">
+              Commits
+              @if ($sort == 'commits')
+              <i class="bi bi-arrow-down d-inline-block @if($order == 'DESC')rotate-180 @endif"></i>
+              @endif
+              
+              
+            </a>
+          </th>
+          <th scope="col">
+            <a href="{{route('admin.projects.index')}}?sort=contributors&order=@if ($sort == 'contributors' && $order != 'DESC') DESC @else ASC @endif">
+              Contributors
+              @if ($sort == 'contributors')
+              <i class="bi bi-arrow-down d-inline-block @if($order == 'DESC')rotate-180 @endif"></i>
+              @endif
+              
+              
+            </a>
+          </th>
+          <th scope="col">
+            <a href="{{route('admin.projects.index')}}?sort=description&order=@if ($sort == 'description' && $order != 'DESC') DESC @else ASC @endif">
+              Description
+              @if ($sort == 'description')
+              <i class="bi bi-arrow-down d-inline-block @if($order == 'DESC')rotate-180 @endif"></i>
+              @endif
+              
+              
+            </a>
+          </th>
           <th scope="col">Actions</th>
           
         </tr>
@@ -40,14 +84,14 @@
             
         <tr class="table-dark">
           <th scope="row">{{$project->id}}</th>
-          <td>{{$project->name}}</td>
+          <td>{{$project->getAbstract()}}</td>
           <td>{{$project->commits}}</td>
           <td>{{$project->contributors}}</td>
           <td class="description">{{$project->getAbstract()}}</td>
           <td class="d-flex flex-column align-items-center justify-content-between">
             <a class="" href="{{ route('admin.projects.show', ['project' => $project ])}}"><i class="bi bi-aspect-ratio-fill text-primary fs-3 "></i></a>
             <a class="" href="{{ route('admin.projects.edit', ['project' => $project ])}}"><i class="bi bi-pencil text-primary fs-3 "></i></a>
-            <button class="bi bi-clipboard2-x-fill text-danger delete-icon fs-3" data-bs-toggle="modal" data-bs-target="#delete-modal-{{$project->id}}"></button>
+            <button class="bi bi-clipboard2-x-fill text-danger delete-icon fs-3{{route('admin.projects.index')}}?sort=" data-bs-toggle="modal" data-bs-target="#delete-modal-{{$project->id}}"></button>
             
             
           </td>
