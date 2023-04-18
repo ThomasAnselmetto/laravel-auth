@@ -26,9 +26,16 @@ Route::get('/projects/{project:slug}',[ProjectController::class,'show'])->middle
 
 Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function(){
 
+// ricorda sempre la resourse vuole questa sintassi nella rotta
+// mentre get e le altre questa
+Route::get('/projects/trash',[ProjectController::class, 'trash'])->name('projects.trash');
 
-Route::resource('projects', ProjectController::class)
-->parameters(['projects' => 'project:slug']); 
+Route::get('/projects/{project}/restore',[ProjectController::class, 'restore'])->name('projects.restore');
+
+Route::get('/projects/{project}/force-delete',[ProjectController::class, 'forceDelete'])->name('projects.force-delete');
+
+Route::resource('projects', ProjectController::class);
+// ->parameters(['projects' => 'project:slug']); 
 });
 
 Route::middleware('auth')

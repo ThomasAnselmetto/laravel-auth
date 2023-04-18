@@ -57,7 +57,6 @@ class ProjectController extends Controller
         $request->validate([
             'project_preview_img'=>'nullable|image|mimes:jpg,png,jpeg',
             'name'=>'required|string|max:100',
-            'commits'=>'required|integer',
             'contributors'=>'required|integer',
             'description'=>'required|string',
 
@@ -68,8 +67,6 @@ class ProjectController extends Controller
             'name.required'=> 'Name is Required',
             'name.string'=> 'Name must be a string',
             'name.max'=> 'The name must contain a maximum of 100 chars',
-            'commits.required'=> 'Name must be a string',
-            'commits.integer'=> 'Name must be a string',
             'contributors.required'=> 'Contributors are Required',
             'contributors.integer'=> 'Contributors must be a number',
             'description.required'=> 'Description is Required',
@@ -137,7 +134,6 @@ class ProjectController extends Controller
         $request->validate([
             'project_preview_img'=>'nullable|image|mimes:jpg,png,jpeg',
             'name'=>'required|string|max:100',
-            'commits'=>'required|integer',
             'contributors'=>'required|integer',
             'description'=>'required|string',
 
@@ -148,8 +144,6 @@ class ProjectController extends Controller
             'name.required'=> 'Name is Required',
             'name.string'=> 'Name must be a string',
             'name.max'=> 'The name must contain a maximum of 100 chars',
-            'commits.required'=> 'Name must be a string',
-            'commits.integer'=> 'Name must be a string',
             'contributors.required'=> 'Contributors are Required',
             'contributors.integer'=> 'Contributors must be a number',
             'description.required'=> 'Description is Required',
@@ -184,15 +178,43 @@ class ProjectController extends Controller
     {   
         $name_project = $project->name;
         $project->delete();
-        return to_route('admin.projects.index')->with('message',"Project $name_project Delete successfully");
+        return to_route('admin.projects.index')->with('message',"Project $name_project in trash-bin");
     }
+
+     /**
+     * Display a listing of the trashed resource.
+     * 
+     *@param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function trash(Request $request){
+        $sort = (!empty($sort_request = $request->get('sort'))) ? $sort_request : 'updated_at';
+           $order = (!empty($order_request = $request->get('order'))) ? $order_request : 'DESC';
+           $projects = Project::onlyTrashed()->orderBy($sort, $order)->paginate(7)->withQueryString();
+        return view('admin.projects.trash',compact('projects','sort','order'));
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Project  $project
+     * @return \Illuminate\Http\Response
+     */
+    public function forceDelete(Int $id){
+        
+       $project = Project::where('id',$id)->onlyTrashed()->first();
+        $project->forceDelete();
+        return to_route('admin.projects.trash')->with('message',"Project $id Delete successfully");
+    }
+    /**
+     * restore the specified resource from storage.
+     *
+     * @param  \App\Models\Project  $project
+     * @return \Illuminate\Http\Response
+     */
+    public function restore(Int $id){
+        
+        $project = Project::where('id',$id)->onlyTrashed()->first();
+         $project->restore();
+         return to_route('admin.projects.index')->with('message',"Project $id Restored");
 }
-
-
-
-
-// $songs = Song::where('title','LIKE',"%$term%")
-// <form class="d-flex my-2 my-lg-0">
-//       <input class="form-control me-sm-2" name="term" type="text" placeholder="Search Songs">
-//       <button class="btn btn-light my-2 my-sm-0 fw-bold" type="submit">Search</button>
-//     </form>
