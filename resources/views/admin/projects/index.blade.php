@@ -27,16 +27,16 @@
       <thead class="table-head">
         <tr>
           <th scope="col">
-            <a href="{{route('admin.projects.index')}}?sort=id&order=@if ($sort == 'id' && $order != 'DESC') DESC @else ASC @endif">
+            <a href="{{route('admin.projects.index')}}?sort=id&order={{ $sort == 'id' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
               @if ($sort == 'id')
-              <i class="bi bi-arrow-down d-inline-block @if($order == 'DESC')rotate-180 @endif"></i>
+              <i class="bi bi-arrow-down d-inline-block @if ($order == 'DESC') rotate-180 @endif"></i>
               @endif
               Id
               
             </a>
           </th>
           <th scope="col">
-            <a href="{{route('admin.projects.index')}}?sort=name&order=@if ($sort == 'name' && $order != 'DESC') DESC @else ASC @endif">
+            <a href="{{route('admin.projects.index')}}?sort=name&order={{$sort == 'name' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
               Name
               @if ($sort == 'name')
               <i class="bi bi-arrow-down d-inline-block @if($order == 'DESC')rotate-180 @endif"></i>
@@ -46,7 +46,7 @@
             </a>
           </th>
           <th scope="col">
-            <a href="{{route('admin.projects.index')}}?sort=commits&order=@if ($sort == 'commits' && $order != 'DESC') DESC @else ASC @endif">
+            <a href="{{route('admin.projects.index')}}?sort=commits&order={{$sort == 'commits' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
               Commits
               @if ($sort == 'commits')
               <i class="bi bi-arrow-down d-inline-block @if($order == 'DESC')rotate-180 @endif"></i>
@@ -56,7 +56,7 @@
             </a>
           </th>
           <th scope="col">
-            <a href="{{route('admin.projects.index')}}?sort=contributors&order=@if ($sort == 'contributors' && $order != 'DESC') DESC @else ASC @endif">
+            <a href="{{route('admin.projects.index')}}?sort=contributors&order={{$sort == 'contributors' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
               Contributors
               @if ($sort == 'contributors')
               <i class="bi bi-arrow-down d-inline-block @if($order == 'DESC')rotate-180 @endif"></i>
@@ -66,7 +66,7 @@
             </a>
           </th>
           <th scope="col">
-            <a href="{{route('admin.projects.index')}}?sort=description&order=@if ($sort == 'description' && $order != 'DESC') DESC @else ASC @endif">
+            <a href="{{route('admin.projects.index')}}?sort=description&order={{$sort == 'description' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
               Description
               @if ($sort == 'description')
               <i class="bi bi-arrow-down d-inline-block @if($order == 'DESC')rotate-180 @endif"></i>

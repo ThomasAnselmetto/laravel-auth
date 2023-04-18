@@ -18,7 +18,10 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     // {   dammi i post,se c'e' l'ordinamento dammeli in un modo,alrtrimenti in un altro
-{
+{           
+
+            // noi leggiamo sort e order dalla richiesta e gli diamo un default nel caso non ci sia niente e poi li usiamo nell'orderBy dopo li riportiamo anche alla view per generare i link,ruotare le freccette ecc tutto questo e' possibile grazie a withQueryString che ci mantiene la selezione anche al cambio di pagina
+            
            $sort = (!empty($sort_request = $request->get('sort'))) ? $sort_request : 'updated_at';
            $order = (!empty($order_request = $request->get('order'))) ? $order_request : 'DESC';
            $projects = Project::orderBy($sort, $order)->paginate(7)->withQueryString();

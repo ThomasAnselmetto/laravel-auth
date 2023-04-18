@@ -6,13 +6,13 @@ body {
 }
 main {
     height: 100vh;
-    width: calc(100% - 300px);
+    width: calc(100% - 250px);
     overflow-y: auto;
 }
 
 .navbar {
     height: 100vh;
-    width: 300px;
+    width: 250px;
     align-items: flex-start;
 
     .container {
