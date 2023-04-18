@@ -17,7 +17,8 @@
     <div class="row">
      
       <div class="col-12 d-flex justify-content-end">
-        <a type="button" class="btn btn-success fw-bold" href="{{route('admin.projects.create')}}">Create New project Link</a>
+        <a type="button" class="btn btn-success border fw-bold" href="{{route('admin.projects.create')}}">Create New project Link</a>
+        <a type="button" class="btn btn-info ms-3 border fw-bold" href="{{route('admin.projects.trash')}}">Trash Bin</a>
       </div>
     </div>
     
@@ -63,7 +64,7 @@
           </th>
           <th scope="col">
             <a href="{{route('admin.projects.index')}}?sort=created_at&order={{$sort == 'created_at' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
-              Description
+              Created At
               @if ($sort == 'created_at')
               <i class="bi bi-arrow-down d-inline-block @if($order == 'DESC')rotate-180 @endif"></i>
               @endif
@@ -71,7 +72,7 @@
           </th>
           <th scope="col">
             <a href="{{route('admin.projects.index')}}?sort=updated_at&order={{$sort == 'updated_at' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
-              Description
+              Updated At
               @if ($sort == 'updated_at')
               <i class="bi bi-arrow-down d-inline-block @if($order == 'DESC')rotate-180 @endif"></i>
               @endif
@@ -103,7 +104,7 @@
           <td class="d-flex flex-column align-items-center justify-content-between">
             <a class="" href="{{ route('admin.projects.show', ['project' => $project ])}}"><i class="bi bi-aspect-ratio-fill text-primary fs-3 "></i></a>
             <a class="" href="{{ route('admin.projects.edit', ['project' => $project ])}}"><i class="bi bi-pencil text-primary fs-3 "></i></a>
-            <button class="bi bi-clipboard2-x-fill text-danger delete-icon fs-3{{route('admin.projects.index')}}?sort=" data-bs-toggle="modal" data-bs-target="#delete-modal-{{$project->id}}"></button>
+            <button class="bi bi-clipboard2-x-fill text-danger delete-icon fs-3{{route('admin.projects.trash')}}?sort=" data-bs-toggle="modal" data-bs-target="#delete-modal-{{$project->id}}"></button>
             
             
           </td>
