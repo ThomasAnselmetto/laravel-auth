@@ -187,3 +187,12 @@ class ProjectController extends Controller
         return to_route('admin.projects.index')->with('message',"Project $name_project Delete successfully");
     }
 }
+
+
+
+
+// $songs = Song::where('title','LIKE',"%$term%")
+// <form class="d-flex my-2 my-lg-0">
+//       <input class="form-control me-sm-2" name="term" type="text" placeholder="Search Songs">
+//       <button class="btn btn-light my-2 my-sm-0 fw-bold" type="submit">Search</button>
+//     </form>

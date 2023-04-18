@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('project_preview_img')->nullable();
             $table->string('slug',100)->unique();
             $table->text('description');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
