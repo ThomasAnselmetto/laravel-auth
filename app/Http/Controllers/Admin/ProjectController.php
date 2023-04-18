@@ -213,8 +213,10 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function restore(Int $id){
-        
+
         $project = Project::where('id',$id)->onlyTrashed()->first();
          $project->restore();
          return to_route('admin.projects.index')->with('message',"Project $id Restored");
+    }
+        
 }
