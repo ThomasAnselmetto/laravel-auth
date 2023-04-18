@@ -20,11 +20,12 @@
       <form method="POST" action="{{route('admin.projects.store')}}" enctype="multipart/form-data" class="row">
   @endif 
       @csrf
-      
-        <div class="col-7">
+      <div class="col-8">
+
+        <div class="col-10">
           <label class="form-label" for="project_preview_img">project_preview_img</label>
 
-          <input type="url" name="project_preview_img" id="project_preview_img" class="@error('project_preview_img') is-invalid @enderror form-control" value="{{old('project_preview_img', $project->project_preview_img)}}">
+          <input type="file" name="project_preview_img" id="project_preview_img" class="@error('project_preview_img') is-invalid @enderror form-control">
           
           @error('project_preview_img')
           <div class="invalid-feedback">
@@ -32,29 +33,29 @@
           </div>
         @enderror
         </div>
-    
-    
-        <div class="col-5">
+        
+        
+        <div class="col-6">
           <label class="form-label" for="name">name</label>
           <input type="text" name="name" id="name" class="@error('name') is-invalid @enderror form-control" value="{{old('name', $project->name)}}">
           @error('name')
           <div class="invalid-feedback">
-              {{$message}}
+            {{$message}}
           </div>
           @enderror
         </div>
             
 
       
-    
+        
     
         <div class="col-2">
           <label class="form-label" for="commits">commits</label>
           <input type="number" name="commits" id="commits" class="@error('commits') is-invalid @enderror form-control" value="{{old('commits', $project->commits)}}">
           @error('commits')
           <div class="invalid-feedback">
-              {{$message}}
-        </div>
+            {{$message}}
+          </div>
         @enderror
       </div>
     
@@ -64,28 +65,34 @@
           <input type="number" name="contributors" id="contributors" class="@error('contributors') is-invalid @enderror form-control" value="{{old('contributors', $project->contributors)}}">
           @error('contributors')
           <div class="invalid-feedback">
-              {{$message}}
+            {{$message}}
         </div>
         @enderror
       </div>
-
+      
     
-        <div class="col-8">
+        <div class="col-10">
           <label class="form-label" for="description">description</label>
           <input type="text" name="description" id="description" class="@error('description') is-invalid @enderror form-control" value="{{old('description', $project->description)}}">
           @error('description')
           <div class="invalid-feedback">
-              {{$message}}
-        </div> 
-        @enderror
+            {{$message}}
+          </div> 
+          @enderror
       </div>
+      </div>
+      <div class="col-4 d-flex flex-wrap align-items-">
+        <img src="{{$project->getImageUri()}}" class="img-fluid" alt="">
+        <input type="submit" class="btn btn-primary align-self-end" value="Save">
+      </div>
+    </form>
+        
+        
+      
+        
+        
 
-
-        <div class="col-3">
-          <input type="submit" class="btn btn-primary mt-3" value="Save">
-        </div>
-      </form>
-
+      
 
     </div>
   </div>

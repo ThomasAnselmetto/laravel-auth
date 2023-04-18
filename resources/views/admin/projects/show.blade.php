@@ -26,7 +26,7 @@
           </ul>
         </div>
         <div class="card-body">
-          <img class="my-4 img-fluid" src="{{$project->project_preview_img}}" >
+          <img class="my-4 img-fluid" src="{{$project->getImageUri()}}" >
           <h2 class="card-title mb-3">Name:  {{$project->name}}</h2>
           <h2 class="card-title mb-3">Commits:  {{$project->commits}}</h2>
           <h4 class="card-title mb-3">Contributors:  {{$project->contributors}}</h4>

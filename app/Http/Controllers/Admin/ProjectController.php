@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -49,11 +51,11 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Project $project)
     //    il validate ha due argomenti che sono gli array 1(validazioni da fare)2(i messaggi d'errore)
        { 
         $request->validate([
-            'project_preview_img'=>'nullable|url',
+            'project_preview_img'=>'nullable|image|mimes:jpg,png,jpeg',
             'name'=>'required|string|max:100',
             'commits'=>'required|integer',
             'contributors'=>'required|integer',
@@ -61,7 +63,8 @@ class ProjectController extends Controller
 
         ],
         [
-            'project_preview_img.url'=> 'You need to enter a url',
+            'project_preview_img.image'=> 'You need to enter an image',
+            'project_preview_img.mimes'=> 'You need to enter jpg,png or jpeg file',
             'name.required'=> 'Name is Required',
             'name.string'=> 'Name must be a string',
             'name.max'=> 'The name must contain a maximum of 100 chars',
@@ -73,13 +76,21 @@ class ProjectController extends Controller
             'description.string'=> 'Description must be a text',
 
         ]);
+        $data = $request->all();
 
+        $path = null;
+        if (Arr::exists($data, 'project_preview_img')) {
+            if($project->project_preview_img) Storage::delete($project->project_preview_img);
+            $path = Storage::put('uploads/projects', $data['project_preview_img']);
+            //$data['image'] = $path;
+        }
 
-        // dd($request->all());
         $project = new Project;
-        $project->fill($request->all());
+        $project->fill($data);
         $project->slug = Project::generateSlug($project->name);
+        $project->project_preview_img = $path;
         $project->save();
+
 
         // lo rimando alla vista show e gli invio sottoforma di parametro il progetto appena creato 
         return to_route('admin.projects.show',$project)
@@ -123,11 +134,44 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         // $project->update($request->all());differenza tra update e fill che update riempie e salva insieme quindi se devo fare operazione nel mezzo faccio fill e save
-        
-        $project->fill($request->all());
+        $request->validate([
+            'project_preview_img'=>'nullable|image|mimes:jpg,png,jpeg',
+            'name'=>'required|string|max:100',
+            'commits'=>'required|integer',
+            'contributors'=>'required|integer',
+            'description'=>'required|string',
+
+        ],
+        [
+            'project_preview_img.image'=> 'You need to enter an image',
+            'project_preview_img.mimes'=> 'You need to enter jpg,png or jpeg file',
+            'name.required'=> 'Name is Required',
+            'name.string'=> 'Name must be a string',
+            'name.max'=> 'The name must contain a maximum of 100 chars',
+            'commits.required'=> 'Name must be a string',
+            'commits.integer'=> 'Name must be a string',
+            'contributors.required'=> 'Contributors are Required',
+            'contributors.integer'=> 'Contributors must be a number',
+            'description.required'=> 'Description is Required',
+            'description.string'=> 'Description must be a text',
+
+        ]);
+        $data = $request->all();
+
+        $path = null;
+        if (Arr::exists($data, 'project_preview_img')) {
+            if($project->project_preview_img) Storage::delete($project->project_preview_img);
+            $path = Storage::put('uploads/projects', $data['project_preview_img']);
+            //$data['image'] = $path;
+        }
+
+        $project->fill($data);
         $project->slug = Project::generateSlug($project->name);
+        $project->project_preview_img = $path;
         $project->save();
         return to_route('admin.projects.show', $project)->with('message',"Project $project->name Modified successfully");
+        
+        
     }
 
     /**

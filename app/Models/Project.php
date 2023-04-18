@@ -14,6 +14,11 @@ class Project extends Model
     public function getAbstract($max = 20) {
         return substr($this->description, 0 , $max) . "...";
     }
+    // mutators per centralizzare caricamento immagini
+    public function getImageUri()
+    {
+        return $this->project_preview_img ? asset('storage/' . $this->project_preview_img) : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsViab5VIcW3FrUIYfgvVmuDJrbpMna6Gn742EnMJtopVO_IKFbOD496Bry2Tz4_6jfrk&usqp=CAU';
+    }
 
     protected $fillable = ["project_preview_img",
     "name","commits",
