@@ -30,9 +30,9 @@ Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function(){
 // mentre get e le altre questa
 Route::get('/projects/trash',[ProjectController::class, 'trash'])->name('projects.trash');
 
-Route::get('/projects/{project}/restore',[ProjectController::class, 'restore'])->name('projects.restore');
+Route::put('/projects/{project}/restore',[ProjectController::class, 'restore'])->name('projects.restore');
 
-Route::get('/projects/{project}/force-delete',[ProjectController::class, 'forceDelete'])->name('projects.force-delete');
+Route::delete('/projects/{project}/force-delete',[ProjectController::class, 'forceDelete'])->name('projects.force-delete');
 
 Route::resource('projects', ProjectController::class);
 // ->parameters(['projects' => 'project:slug']); 

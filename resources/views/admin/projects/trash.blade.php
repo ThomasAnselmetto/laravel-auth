@@ -73,7 +73,7 @@
           </th>
           <th scope="col">
             <a href="{{route('admin.projects.trash')}}?sort=created_at&order={{$sort == 'created_at' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
-              Description
+              Created At
               @if ($sort == 'created_at')
               <i class="bi bi-arrow-down d-inline-block @if($order == 'DESC')rotate-180 @endif"></i>
               @endif
@@ -81,7 +81,7 @@
           </th>
           <th scope="col">
             <a href="{{route('admin.projects.trash')}}?sort=updated_at&order={{$sort == 'updated_at' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
-              Description
+              Updated At
               @if ($sort == 'updated_at')
               <i class="bi bi-arrow-down d-inline-block @if($order == 'DESC')rotate-180 @endif"></i>
               @endif
@@ -89,7 +89,7 @@
           </th>
           <th scope="col">
             <a href="{{route('admin.projects.trash')}}?sort=deleted_at&order={{$sort == 'deleted_at' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
-              Description
+              Deleted At
               @if ($sort == 'deleted_at')
               <i class="bi bi-arrow-down d-inline-blodeletedck @if($order == 'DESC')rotate-180 @endif"></i>
               @endif
@@ -116,6 +116,7 @@
             <a class="" href="{{ route('admin.projects.edit', ['project' => $project ])}}"><i class="bi bi-pencil text-primary fs-3 "></i></a> --}}
 
             <button class="bi bi-clipboard2-x-fill text-danger delete-icon fs-3{{route('admin.projects.trash')}}?sort=" data-bs-toggle="modal" data-bs-target="#delete-modal-{{$project->id}}"></button>
+
             <button class="bi bi-arrow-up-left-square-fill text-success delete-icon fs-3{{route('admin.projects.trash')}}?sort=" data-bs-toggle="modal" data-bs-target="#restore-modal-{{$project->id}}"></button>
           </td>
           
@@ -136,6 +137,33 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-4  fw-bold" id="exampleModalLabel">Attention</h1>
+        
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body fs-2 fw-bold">
+        Are you sure you want to delete the project with Name {{$project->name}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info text-light border fw-bold" data-bs-dismiss="modal">Close</button>
+        <form class="" action="{{ route('admin.projects.force-delete', $project )}}" method="POST">
+          @csrf
+          @method('delete')
+          <button type="submit" class="btn btn-danger border fw-bold">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="restore-modal-{{$project->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-4  fw-bold" id="exampleModalLabel">Attention</h1>
 
         {{-- per i button possiamo usare i tooltips 
           <button type="button" class="btn btn-secondary"
@@ -149,14 +177,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body fs-2 fw-bold">
-        Are you sure you want to delete the project with Name {{$project->name}}?
+        Are you sure you want to restore the project with Name {{$project->name}}?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-info text-light border fw-bold" data-bs-dismiss="modal">Close</button>
-        <form class="" action="{{ route('admin.projects.force-delete', ['project' => $project ])}}" method="POST">
+        <form class="" action="{{ route('admin.projects.restore',$project)}}" method="POST">
           @csrf
-          @method('delete')
-          <button type="submit" class="btn btn-danger border fw-bold">Delete</button>
+          @method('PUT')
+          <button type="submit" class="btn btn-success border fw-bold">Restore</button>
         </form>
       </div>
     </div>
@@ -172,12 +200,6 @@
       
       
 
-{{-- <td class="d-flex justify-content-between">
-  <a class="" href="{{ route('projects.show', ['project' => $project ])}}"><i class="bi bi-sliders2-vertical text-success fs-3"></i></a>
-  <a class="" href="{{ route('projects.edit', ['project' => $project ])}}"><i class="bi bi-bandaid-fill text-success fs-3"></i></a>
- 
-  <button class="bi bi-clipboard2-x-fill text-danger delete-icon fs-3" data-bs-toggle="modal" data-bs-target="#delete-modal-{{$project->id}}"></button>
-</td> --}}
               
               
               

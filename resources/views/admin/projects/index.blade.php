@@ -5,7 +5,7 @@
 @section('content')
 {{-- @dump($sort) --}}
 @if (session('message'))
-<div class="alert alert-danger">
+<div class="alert alert-info">
     {{ session('message') }}
 </div>
 @endif
@@ -24,7 +24,7 @@
     
         
     
-    <table class="table table-light table-striped  mt-5 p-3">
+    <table class="table table-light table-striped  mt-5">
       <thead class="table-head">
         <tr>
           <th scope="col">
@@ -92,12 +92,12 @@
           
         @foreach ($projects as $project)
             
-        <tr class="table-dark">
+        <tr class="table-dark w-100">
           <th scope="row">{{$project->id}}</th>
           <td>{{$project->getAbstract()}}</td>
           <td>{{$project->commits}}</td>
           <td>{{$project->contributors}}</td>
-          <td class="description">{{$project->getAbstract()}}</td>
+          <td>{{$project->getAbstract()}}</td>
           <td>{{$project->created_at}}</td>
           <td>{{$project->updated_at}}</td>
           
@@ -150,37 +150,7 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="restore-modal-{{$project->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-4  fw-bold" id="exampleModalLabel">Attention</h1>
 
-        {{-- per i button possiamo usare i tooltips 
-          <button type="button" class="btn btn-secondary"
-        data-bs-toggle="tooltip" data-bs-placement="top"
-        data-bs-custom-class="custom-tooltip"
-        data-bs-title="This top tooltip is themed via CSS variables.">
-  Custom tooltip
-</button> --}}
-
-
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body fs-2 fw-bold">
-        Are you sure you want to restore the project with Name {{$project->name}}?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-info text-light border fw-bold" data-bs-dismiss="modal">Close</button>
-        <form class="" action="{{ route('admin.projects.destroy', ['project' => $project ])}}" method="POST">
-          @csrf
-          @method('restore')
-          <button type="submit" class="btn btn-danger border fw-bold">Delete</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 @endforeach
 @endsection 
 

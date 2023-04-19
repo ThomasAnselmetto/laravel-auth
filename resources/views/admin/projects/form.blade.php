@@ -44,22 +44,7 @@
           </div>
           @enderror
         </div>
-            
-
-      
-        
-    
-        <div class="col-2">
-          <label class="form-label" for="commits">commits</label>
-          <input type="number" name="commits" id="commits" class="@error('commits') is-invalid @enderror form-control" value="{{old('commits', $project->commits)}}">
-          @error('commits')
-          <div class="invalid-feedback">
-            {{$message}}
-          </div>
-        @enderror
-      </div>
-    
-        
+          
         <div class="col-2">
           <label class="form-label" for="contributors">contributors</label>
           <input type="number" name="contributors" id="contributors" class="@error('contributors') is-invalid @enderror form-control" value="{{old('contributors', $project->contributors)}}">

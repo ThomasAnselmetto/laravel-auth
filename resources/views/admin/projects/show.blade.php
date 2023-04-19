@@ -27,10 +27,10 @@
         </div>
         <div class="card-body">
           <img class="my-4 img-fluid" src="{{$project->getImageUri()}}" >
-          <h2 class="card-title mb-3">Name:  {{$project->name}}</h2>
-          <h2 class="card-title mb-3">Commits:  {{$project->commits}}</h2>
+          <h2 class="card-title mb-3">Project Name:</h2>
+          <h3 class="mb-3 text-color"> {{$project->name}}</h3>
           <h4 class="card-title mb-3">Contributors:  {{$project->contributors}}</h4>
-          <h4 class="card-text mb-3">Description:  {{$project->description}}</h4>
+          <h4 class="card-text mb-3 border border-dark p-2">Description:  {{$project->description}}</h4>
           <a href="https://github.com/ThomasAnselmetto?tab=repositories" class="btn btn-primary mt-3">Apri la Repo su Github</a>
         </div>
       </div>
