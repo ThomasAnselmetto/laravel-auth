@@ -24,7 +24,7 @@
     
         
     
-    <table class="table table-light table-striped  mt-5">
+    <table class="table table-light table-striped   mt-5">
       <thead class="table-head">
         <tr>
           <th scope="col">
@@ -36,7 +36,7 @@
               
             </a>
           </th>
-          <th scope="col">
+          <th  scope="col">
             <a href="{{route('admin.projects.index')}}?sort=name&order={{$sort == 'name' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
               Name
               @if ($sort == 'name')
@@ -44,7 +44,6 @@
               @endif
             </a>
           </th>
-              
           <th scope="col">
             <a href="{{route('admin.projects.index')}}?sort=contributors&order={{$sort == 'contributors' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
               Contributors
@@ -53,7 +52,6 @@
               @endif
             </a>
           </th>
-          
           <th scope="col">
             <a href="{{route('admin.projects.index')}}?sort=description&order={{$sort == 'description' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
               Description
@@ -78,24 +76,18 @@
               @endif
             </a>
           </th>
-          
           <th scope="col">Actions</th>
         </tr>
       </thead>
+              
+          
+          
       <tbody>
-              
-          
-              
-              
-              
-              
-          
         @foreach ($projects as $project)
             
         <tr class="table-dark w-100">
-          <th scope="row">{{$project->id}}</th>
-          <td>{{$project->getAbstract()}}</td>
-          <td>{{$project->commits}}</td>
+          <th>{{$project->id}}</th>
+          <td>{{$project->name}}</td>
           <td>{{$project->contributors}}</td>
           <td>{{$project->getAbstract()}}</td>
           <td>{{$project->created_at}}</td>
@@ -112,6 +104,13 @@
         </tr>
         @endforeach
       </tbody>
+              
+          
+              
+              
+              
+              
+          
     </table>
     {{ $projects->links('') }}
   </div>

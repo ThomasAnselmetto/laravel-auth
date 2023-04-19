@@ -23,7 +23,7 @@ class ProjectSeeder extends Seeder
     {
         for($i = 0;$i < 50;$i++){
             $project = new Project;
-            $project->name = $faker->catchPhrase();
+            $project->name = $faker->word();
             $project->contributors = $faker->numberBetween(1, 20);
             // $project->project_preview_img = $faker->imageUrl(640, 480, 'animals', true);
             $project->slug = Str::of($project->name)->slug('-');

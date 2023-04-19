@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->integer('contributors');
             $table->string('project_preview_img')->nullable();
-            $table->string('slug',100)->unique();
+            $table->string('slug',100);
+            // ->unique();
             $table->text('description');
             $table->softDeletes();
             $table->timestamps();
